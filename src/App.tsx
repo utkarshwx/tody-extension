@@ -1,40 +1,55 @@
-import { useState } from "react";
-
-type TaskStatus = "TODO" | "IN_PROGRESS" | "COMPLETED";
-
-interface Task {
-  id: string;
-  title: string;
-  priority: "LOW" | "MEDIUM" | "HIGH";
-  period: "DAY" | "WEEK" | "MONTH" | "YEAR";
-  status: TaskStatus;
-}
+import { useEffect, useState } from "react";
+import Login from "./components/Login";
+import { getMe } from "./api/auth";
+import { getToken, removeToken } from "./storage/auth";
 
 function App() {
-  const [task, setTask] = useState<Task>({
-    id: "1",
-    title: "Build Tody extension",
-    priority: "HIGH",
-    period: "DAY",
-    status: "TODO"
-  });
+  const [authenticated, setAuthenticated] =
+    useState<boolean | null>(null);
 
-  function handleStart() {
-    setTask((current) => ({
-      ...current,
-      status: "IN_PROGRESS"
-    }));
+  const [user, setUser] = useState<{
+    email: string;
+    name?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    async function checkAuth() {
+      const token = await getToken();
+
+      if (!token) {
+        setAuthenticated(false);
+        return;
+      }
+
+      try {
+        const currentUser = await getMe();
+
+        setUser(currentUser);
+        setAuthenticated(true);
+      } catch {
+        await removeToken();
+        setAuthenticated(false);
+      }
+    }
+
+    checkAuth();
+  }, []);
+
+  if (authenticated === null) {
+    return (
+      <main className="app">
+        <p>Loading...</p>
+      </main>
+    );
   }
 
-  function handleComplete() {
-    setTask((current) => ({
-      ...current,
-      status: "COMPLETED"
-    }));
+  if (!authenticated) {
+    return (
+      <Login
+        onLogin={() => setAuthenticated(true)}
+      />
+    );
   }
-
-  const completed = task.status === "COMPLETED";
-  const inProgress = task.status === "IN_PROGRESS";
 
   return (
     <main className="app">
@@ -42,41 +57,22 @@ function App() {
         <h1>Tody</h1>
 
         <span className="date">
-          Friday, October 2
+          Know what to do.
         </span>
       </header>
 
       <section className="next">
-        <p className="label">WHAT'S NEXT</p>
+        <p className="label">
+          WHAT'S NEXT
+        </p>
 
-        {completed ? (
-          <>
-            <h2>Nothing pending.</h2>
+        <h2>
+          Welcome{user?.name ? `, ${user.name}` : ""}.
+        </h2>
 
-            <p>
-              You're done with your current task.
-            </p>
-          </>
-        ) : (
-          <>
-            <h2>{task.title}</h2>
-
-            <div className="task-meta">
-              <span>{task.priority}</span>
-              <span>{task.period}</span>
-            </div>
-
-            {inProgress ? (
-              <button onClick={handleComplete}>
-                Complete
-              </button>
-            ) : (
-              <button onClick={handleStart}>
-                Start
-              </button>
-            )}
-          </>
-        )}
+        <p>
+          Authentication is working.
+        </p>
       </section>
     </main>
   );
