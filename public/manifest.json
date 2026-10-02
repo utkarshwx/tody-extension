@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Tody",
+    "version": "0.1.0",
+    "description": "Know what to do.",
+    "action": {
+        "default_title": "Tody",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "storage"
+    ]
+}
