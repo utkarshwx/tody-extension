@@ -1,3 +1,30 @@
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -182,3 +209,4 @@
     border-right-color: var(--border);
   }
 }
+
