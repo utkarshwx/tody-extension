@@ -1,6 +1,6 @@
 import { getToken } from "../storage/auth";
 
-const API_BASE_URL = "http://localhost:5000/api/v1";
+const API_BASE_URL = "https://api.tody.recurexlabs.com/api/v1";
 
 interface RequestOptions extends RequestInit {
     authenticated?: boolean;
