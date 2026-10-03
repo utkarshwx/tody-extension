@@ -5,7 +5,19 @@
     "description": "Know what to do.",
     "action": {
         "default_title": "Tody",
-        "default_popup": "index.html"
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "tody_logo.png",
+            "32": "tody_logo.png",
+            "48": "tody_logo.png",
+            "128": "tody_logo.png"
+        }
+    },
+    "icons": {
+        "16": "tody_logo.png",
+        "32": "tody_logo.png",
+        "48": "tody_logo.png",
+        "128": "tody_logo.png"
     },
     "permissions": [
         "storage"
