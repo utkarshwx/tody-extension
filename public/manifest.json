@@ -7,19 +7,36 @@
         "default_title": "Tody",
         "default_popup": "index.html",
         "default_icon": {
-            "16": "tody_logo.png",
-            "32": "tody_logo.png",
-            "48": "tody_logo.png",
-            "128": "tody_logo.png"
+            "16": "icons/icon-16.png",
+            "32": "icons/icon-32.png",
+            "48": "icons/icon-48.png",
+            "128": "icons/icon-128.png"
         }
     },
     "icons": {
-        "16": "tody_logo.png",
-        "32": "tody_logo.png",
-        "48": "tody_logo.png",
-        "128": "tody_logo.png"
+        "16": "icons/icon-16.png",
+        "32": "icons/icon-32.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
     },
     "permissions": [
         "storage"
-    ]
+    ],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "@tody-recurexlabs",
+            "data_collection_permissions": {
+                "required": [
+                    "authenticationInfo",
+                    "personallyIdentifyingInfo"
+                ]
+            }
+        }
+    },
+    "data_collection_permissions": {
+        "required": [
+            "authenticationInfo",
+            "personallyIdentifyingInfo"
+        ]
+    }
 }
