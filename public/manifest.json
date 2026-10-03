@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Tody",
-    "version": "0.1.9",
+    "version": "0.2.7",
     "description": "Know what to do.",
     "action": {
         "default_title": "Tody",

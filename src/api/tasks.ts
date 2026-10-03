@@ -1,9 +1,17 @@
 import { request } from "./client";
 import type { Task, TaskPriority, TaskPeriod } from "../types/task";
 
-interface TasksResponse {
+export interface TasksResponse {
     success: boolean;
     tasks: Task[];
+    pagination: {
+        page: number;
+        limit: number;
+        total: number;
+        totalPages: number;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+    };
 }
 
 interface TaskResponse {
@@ -21,12 +29,13 @@ export interface CreateTaskInput {
     goalId?: string;
 }
 
-export async function getTasks(): Promise<Task[]> {
-    const response = await request<TasksResponse>(
-        "/tasks"
+export async function getTasks(
+    page = 1,
+    limit = 20
+): Promise<TasksResponse> {
+    return request<TasksResponse>(
+        `/tasks?page=${page}&limit=${limit}`
     );
-
-    return response.tasks;
 }
 
 export async function startTask(

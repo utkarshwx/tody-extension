@@ -14,6 +14,16 @@ interface MeResponse {
     };
 }
 
+interface RegisterResponse {
+    success: boolean;
+    token: string;
+    user: {
+        id: string;
+        email: string;
+        name?: string;
+    };
+}
+
 export async function login(
     email: string,
     password: string
@@ -40,4 +50,25 @@ export async function getMe(): Promise<MeResponse["user"]> {
     );
 
     return response.user;
+}
+
+export async function register(
+    name: string,
+    email: string,
+    password: string
+): Promise<void> {
+    const response = await request<RegisterResponse>(
+        "/auth/register",
+        {
+            method: "POST",
+            authenticated: false,
+            body: JSON.stringify({
+                name,
+                email,
+                password
+            })
+        }
+    );
+
+    await setToken(response.token);
 }
